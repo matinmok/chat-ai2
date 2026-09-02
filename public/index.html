@@ -1,29 +1,33 @@
-```html
 <!doctype html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>AI Chat</title>
+	<title>matinder ai</title>
+
+	<!-- فونت وزیرمتن -->
+	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
 
 	<style>
 		:root {
 			--primary: #f6821f;
 			--primary-hover: #e87512;
+			--primary-glow: rgba(246, 130, 31, 0.25);
 
-			--bg: #0b0d10;
-			--surface: #111418;
-			--surface-2: #171b20;
-			--border: #252a31;
+			--bg: #0a0c0f;
+			--surface: #111519;
+			--surface-2: #181d23;
+			--border: #262c34;
 
-			--text: #f3f4f6;
-			--text-muted: #8b929c;
+			--text: #f0f2f5;
+			--text-muted: #8e96a0;
 
 			--user-bg: #f6821f;
-			--assistant-bg: #181c21;
+			--assistant-bg: #191e24;
 
-			--radius: 16px;
+			--radius: 18px;
+			--radius-sm: 12px;
 		}
 
 		* {
@@ -39,25 +43,15 @@
 		}
 
 		body {
-			font-family:
-				-apple-system,
-				BlinkMacSystemFont,
-				"Segoe UI",
-				Roboto,
-				Helvetica,
-				Arial,
-				sans-serif;
-
+			font-family: "Vazirmatn", "Segoe UI", Tahoma, sans-serif;
 			background:
-				radial-gradient(
-					circle at top,
-					rgba(246, 130, 31, 0.08),
-					transparent 35%
-				),
+				radial-gradient(circle at 30% 10%, rgba(246, 130, 31, 0.07), transparent 40%),
+				radial-gradient(circle at 80% 90%, rgba(246, 130, 31, 0.04), transparent 35%),
 				var(--bg);
-
 			color: var(--text);
 			overflow: hidden;
+			font-weight: 400;
+			letter-spacing: 0.2px;
 		}
 
 		/* =========================
@@ -67,7 +61,6 @@
 		.app {
 			width: 100%;
 			height: 100vh;
-
 			display: flex;
 			flex-direction: column;
 		}
@@ -77,82 +70,93 @@
 		========================= */
 
 		header {
-			height: 70px;
+			height: 72px;
 			flex-shrink: 0;
-
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-
-			padding: 0 24px;
-
+			padding: 0 28px;
 			border-bottom: 1px solid var(--border);
-			background: rgba(11, 13, 16, 0.85);
-
-			backdrop-filter: blur(14px);
-			-webkit-backdrop-filter: blur(14px);
+			background: rgba(10, 12, 15, 0.82);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
 		}
 
 		.brand {
 			display: flex;
 			align-items: center;
-			gap: 12px;
+			gap: 14px;
 		}
 
 		.logo {
-			width: 38px;
-			height: 38px;
-
+			width: 44px;
+			height: 44px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			border-radius: var(--radius-sm);
+			background: linear-gradient(145deg, var(--primary), #ffa24e);
+			color: #fff;
+			font-size: 22px;
+			font-weight: 800;
+			box-shadow: 0 8px 28px var(--primary-glow);
+			transition: transform 0.2s ease;
+		}
 
-			border-radius: 12px;
-
-			background: linear-gradient(
-				135deg,
-				var(--primary),
-				#ff9d4d
-			);
-
-			color: white;
-			font-size: 19px;
-			font-weight: 700;
-
-			box-shadow:
-				0 8px 25px rgba(246, 130, 31, 0.2);
+		.logo:hover {
+			transform: scale(1.04);
 		}
 
 		.brand-text h1 {
-			font-size: 16px;
-			font-weight: 650;
-			letter-spacing: -0.2px;
+			font-size: 18px;
+			font-weight: 700;
+			letter-spacing: -0.3px;
+			color: #fff;
+		}
+
+		.brand-text h1 span {
+			color: var(--primary);
 		}
 
 		.brand-text p {
 			margin-top: 2px;
-
 			font-size: 11px;
 			color: var(--text-muted);
+			font-weight: 300;
+			letter-spacing: 0.3px;
 		}
 
 		.status {
 			display: flex;
 			align-items: center;
-			gap: 7px;
-
+			gap: 8px;
 			font-size: 12px;
 			color: var(--text-muted);
+			background: rgba(255, 255, 255, 0.04);
+			padding: 6px 14px 6px 16px;
+			border-radius: 40px;
+			border: 1px solid rgba(255, 255, 255, 0.04);
 		}
 
 		.status-dot {
-			width: 7px;
-			height: 7px;
-
+			width: 8px;
+			height: 8px;
 			border-radius: 50%;
 			background: #42d392;
+			box-shadow: 0 0 14px rgba(66, 211, 146, 0.6);
+			animation: pulse-dot 2s infinite;
+		}
 
-			box-shadow: 0 0 10px rgba(66, 211, 146, 0.6);
+		@keyframes pulse-dot {
+			0%,
+			100% {
+				opacity: 1;
+				transform: scale(1);
+			}
+			50% {
+				opacity: 0.6;
+				transform: scale(0.85);
+			}
 		}
 
 		/* =========================
@@ -161,28 +165,21 @@
 
 		.chat-wrapper {
 			flex: 1;
-
 			width: 100%;
-			max-width: 920px;
-
+			max-width: 960px;
 			margin: 0 auto;
-
 			display: flex;
 			flex-direction: column;
-
 			min-height: 0;
 		}
 
 		.chat-container {
 			flex: 1;
-
 			display: flex;
 			flex-direction: column;
-
 			min-height: 0;
-
-			border-left: 1px solid rgba(255, 255, 255, 0.025);
-			border-right: 1px solid rgba(255, 255, 255, 0.025);
+			border-left: 1px solid rgba(255, 255, 255, 0.02);
+			border-right: 1px solid rgba(255, 255, 255, 0.02);
 		}
 
 		/* =========================
@@ -191,55 +188,44 @@
 
 		.chat-messages {
 			flex: 1;
-
 			overflow-y: auto;
-
-			padding: 32px 24px 20px;
-
+			padding: 32px 28px 20px;
 			scroll-behavior: smooth;
 		}
 
 		.chat-messages::-webkit-scrollbar {
-			width: 6px;
+			width: 5px;
 		}
-
 		.chat-messages::-webkit-scrollbar-track {
 			background: transparent;
 		}
-
 		.chat-messages::-webkit-scrollbar-thumb {
-			background: #292e35;
-			border-radius: 10px;
+			background: #2d333b;
+			border-radius: 20px;
 		}
 
 		.message {
 			display: flex;
 			flex-direction: column;
-
 			width: fit-content;
-			max-width: min(78%, 680px);
-
-			margin-bottom: 18px;
-
-			padding: 13px 16px;
-
+			max-width: min(76%, 660px);
+			margin-bottom: 20px;
+			padding: 14px 20px;
 			border-radius: var(--radius);
-
-			font-size: 14px;
-			line-height: 1.65;
-
-			animation: messageIn 0.2s ease-out;
+			font-size: 14.5px;
+			line-height: 1.75;
+			animation: messageIn 0.25s ease-out;
+			position: relative;
 		}
 
 		@keyframes messageIn {
 			from {
 				opacity: 0;
-				transform: translateY(5px);
+				transform: translateY(8px) scale(0.97);
 			}
-
 			to {
 				opacity: 1;
-				transform: translateY(0);
+				transform: translateY(0) scale(1);
 			}
 		}
 
@@ -249,27 +235,19 @@
 		}
 
 		.user-message {
-			margin-left: auto;
-
+			margin-right: auto;
 			background: var(--user-bg);
-			color: white;
-
-			border-bottom-right-radius: 5px;
-
-			box-shadow:
-				0 8px 25px rgba(246, 130, 31, 0.12);
+			color: #fff;
+			border-bottom-left-radius: 5px;
+			box-shadow: 0 8px 28px rgba(246, 130, 31, 0.15);
 		}
 
 		.assistant-message {
-			margin-right: auto;
-
+			margin-left: auto;
 			background: var(--assistant-bg);
-
 			border: 1px solid var(--border);
-
 			color: var(--text);
-
-			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
 		}
 
 		/* =========================
@@ -278,57 +256,54 @@
 
 		.typing-indicator {
 			display: none;
-
 			align-items: center;
-			gap: 5px;
-
+			gap: 8px;
 			width: fit-content;
-
-			margin: 0 24px 12px;
-			padding: 10px 14px;
-
-			border-radius: 12px;
-
+			margin: 0 28px 14px;
+			padding: 10px 18px;
+			border-radius: 14px;
 			background: var(--assistant-bg);
 			border: 1px solid var(--border);
-
 			color: var(--text-muted);
-
-			font-size: 12px;
+			font-size: 12.5px;
+			font-weight: 300;
 		}
 
 		.typing-indicator.visible {
 			display: flex;
 		}
 
-		.typing-indicator::after {
-			content: "";
-
-			width: 5px;
-			height: 5px;
-
-			border-radius: 50%;
-
-			background: var(--primary);
-
-			box-shadow:
-				8px 0 0 rgba(246, 130, 31, 0.6),
-				16px 0 0 rgba(246, 130, 31, 0.3);
-
-			animation: dots 1.2s infinite;
+		.typing-dots {
+			display: flex;
+			gap: 4px;
+			margin-right: 6px;
 		}
 
-		@keyframes dots {
-			0% {
-				opacity: 0.3;
-			}
+		.typing-dots span {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--primary);
+			animation: typingBounce 1.4s infinite;
+		}
 
-			50% {
-				opacity: 1;
-			}
+		.typing-dots span:nth-child(2) {
+			animation-delay: 0.2s;
+		}
+		.typing-dots span:nth-child(3) {
+			animation-delay: 0.4s;
+		}
 
+		@keyframes typingBounce {
+			0%,
+			60%,
 			100% {
-				opacity: 0.3;
+				transform: translateY(0);
+				opacity: 0.4;
+			}
+			30% {
+				transform: translateY(-6px);
+				opacity: 1;
 			}
 		}
 
@@ -337,71 +312,45 @@
 		========================= */
 
 		.message-input {
-			padding: 12px 18px 18px;
-
-			background:
-				linear-gradient(
-					to top,
-					var(--bg) 75%,
-					transparent
-				);
+			padding: 14px 20px 20px;
+			background: linear-gradient(to top, var(--bg) 70%, transparent);
 		}
 
 		.input-box {
 			display: flex;
 			align-items: flex-end;
-
-			padding: 8px;
-
+			padding: 6px 6px 6px 18px;
 			background: var(--surface);
-
 			border: 1px solid var(--border);
-
-			border-radius: 18px;
-
-			box-shadow:
-				0 12px 35px rgba(0, 0, 0, 0.25);
-
-			transition:
-				border-color 0.2s,
-				box-shadow 0.2s;
+			border-radius: 24px;
+			box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+			transition: border-color 0.25s, box-shadow 0.25s;
 		}
 
 		.input-box:focus-within {
-			border-color: rgba(246, 130, 31, 0.55);
-
-			box-shadow:
-				0 0 0 3px rgba(246, 130, 31, 0.08),
-				0 12px 35px rgba(0, 0, 0, 0.25);
+			border-color: rgba(246, 130, 31, 0.5);
+			box-shadow: 0 0 0 4px rgba(246, 130, 31, 0.06), 0 12px 40px rgba(0, 0, 0, 0.3);
 		}
 
 		#user-input {
 			flex: 1;
-
 			width: 100%;
-
-			padding: 11px 12px;
-
+			padding: 12px 0;
 			background: transparent;
-
 			border: none;
 			outline: none;
-
 			color: var(--text);
-
 			font-family: inherit;
-			font-size: 14px;
-
-			line-height: 1.5;
-
+			font-size: 14.5px;
+			line-height: 1.6;
 			resize: none;
-
-			min-height: 44px;
+			min-height: 48px;
 			max-height: 150px;
 		}
 
 		#user-input::placeholder {
-			color: #666d76;
+			color: #6a727c;
+			font-weight: 300;
 		}
 
 		/* =========================
@@ -409,59 +358,45 @@
 		========================= */
 
 		#send-button {
-			width: 42px;
-			height: 42px;
-
+			width: 48px;
+			height: 48px;
 			flex-shrink: 0;
-
 			display: flex;
 			align-items: center;
 			justify-content: center;
-
-			margin-left: 5px;
-
-			background: var(--primary);
-
-			color: white;
-
+			margin-right: 4px;
+			background: linear-gradient(145deg, var(--primary), #e87512);
+			color: #fff;
 			border: none;
-			border-radius: 13px;
-
+			border-radius: 18px;
 			cursor: pointer;
-
 			font-size: 0;
-
-			transition:
-				transform 0.15s,
-				background 0.2s,
-				opacity 0.2s;
+			transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+			box-shadow: 0 6px 20px var(--primary-glow);
 		}
 
 		#send-button::before {
 			content: "↑";
-
-			font-size: 21px;
-			font-weight: 500;
-
+			font-size: 24px;
+			font-weight: 600;
 			line-height: 1;
 		}
 
 		#send-button:hover {
-			background: var(--primary-hover);
-			transform: translateY(-1px);
+			transform: translateY(-2px) scale(1.02);
+			box-shadow: 0 10px 30px var(--primary-glow);
 		}
 
 		#send-button:active {
-			transform: scale(0.95);
+			transform: scale(0.93);
 		}
 
 		#send-button:disabled {
-			background: #343941;
+			background: #333941;
 			color: #777e87;
-
 			cursor: not-allowed;
-
 			transform: none;
+			box-shadow: none;
 		}
 
 		/* =========================
@@ -470,85 +405,111 @@
 
 		footer {
 			text-align: center;
-
-			padding: 0 0 12px;
-
-			font-size: 10px;
-
-			color: #555c65;
+			padding: 4px 0 16px;
+			font-size: 10.5px;
+			color: #4d545e;
+			font-weight: 300;
+			letter-spacing: 0.5px;
 		}
 
 		/* =========================
 		   MOBILE
 		========================= */
 
-		@media (max-width: 600px) {
-
+		@media (max-width: 640px) {
 			header {
-				height: 62px;
-
-				padding: 0 15px;
+				height: 64px;
+				padding: 0 16px;
 			}
 
 			.logo {
-				width: 34px;
-				height: 34px;
-
+				width: 38px;
+				height: 38px;
+				font-size: 18px;
 				border-radius: 10px;
 			}
 
 			.brand-text h1 {
-				font-size: 14px;
+				font-size: 15px;
 			}
-
 			.brand-text p {
 				font-size: 10px;
 			}
 
 			.status {
 				font-size: 10px;
+				padding: 4px 10px 4px 12px;
+			}
+			.status-dot {
+				width: 6px;
+				height: 6px;
 			}
 
 			.chat-messages {
-				padding: 22px 14px 15px;
+				padding: 20px 14px 14px;
 			}
 
 			.message {
-				max-width: 88%;
-
-				padding: 11px 13px;
-
-				font-size: 13px;
-
-				border-radius: 14px;
-			}
-
-			.typing-indicator {
-				margin-left: 14px;
-				margin-right: 14px;
-			}
-
-			.message-input {
-				padding: 8px 10px 10px;
-			}
-
-			.input-box {
+				max-width: 90%;
+				padding: 12px 16px;
+				font-size: 13.5px;
 				border-radius: 16px;
 			}
 
+			.typing-indicator {
+				margin: 0 14px 10px;
+				font-size: 11px;
+				padding: 8px 14px;
+			}
+
+			.message-input {
+				padding: 8px 10px 12px;
+			}
+
+			.input-box {
+				border-radius: 20px;
+				padding: 4px 4px 4px 14px;
+			}
+
 			#user-input {
-				font-size: 13px;
+				font-size: 13.5px;
+				min-height: 42px;
 			}
 
 			#send-button {
-				width: 40px;
-				height: 40px;
-
-				border-radius: 12px;
+				width: 44px;
+				height: 44px;
+				border-radius: 16px;
+			}
+			#send-button::before {
+				font-size: 20px;
 			}
 
 			footer {
 				display: none;
+			}
+		}
+
+		/* =========================
+		   RTL FIXES
+		========================= */
+
+		.user-message {
+			margin-right: auto;
+			margin-left: unset;
+		}
+
+		.assistant-message {
+			margin-left: auto;
+			margin-right: unset;
+		}
+
+		@media (max-width: 640px) {
+			.user-message {
+				margin-right: auto;
+			}
+			.assistant-message {
+				margin-left: auto;
 			}
 		}
 	</style>
@@ -562,58 +523,47 @@
 		<header>
 
 			<div class="brand">
-
-				<div class="logo">
-					✦
-				</div>
-
+				<div class="logo">✦</div>
 				<div class="brand-text">
-					<h1>AI Assistant</h1>
-					<p>Powered by Cloudflare Workers AI</p>
+					<h1>matinder <span>ai</span></h1>
+					<p>پشتیبانی‌شده توسط Cloudflare Workers AI</p>
 				</div>
-
 			</div>
 
 			<div class="status">
 				<span class="status-dot"></span>
-				Online
+				آنلاین
 			</div>
 
 		</header>
-
 
 		<!-- Chat -->
 		<main class="chat-wrapper">
 
 			<div class="chat-container">
 
-				<div
-					id="chat-messages"
-					class="chat-messages"
-				>
+				<div id="chat-messages" class="chat-messages">
 
 					<div class="message assistant-message">
-
 						<p>
-							Hello! 👋
-
-							I'm your AI assistant powered by Cloudflare Workers AI.
-
-							How can I help you today?
+							سلام! 👋
+							<br>
+							من دستیار هوش مصنوعی matinder هستم.
+							<br>
+							چطور می‌توانم امروز به شما کمک کنم؟
 						</p>
-
 					</div>
 
 				</div>
 
-
-				<div
-					class="typing-indicator"
-					id="typing-indicator"
-				>
-					AI is thinking
+				<div class="typing-indicator" id="typing-indicator">
+					هوش مصنوعی در حال فکر کردن
+					<span class="typing-dots">
+						<span></span>
+						<span></span>
+						<span></span>
+					</span>
 				</div>
-
 
 				<!-- Input -->
 				<div class="message-input">
@@ -622,16 +572,13 @@
 
 						<textarea
 							id="user-input"
-							placeholder="Message AI..."
+							placeholder="پیام خود را بنویسید..."
 							rows="1"
 							autofocus
 						></textarea>
 
-						<button
-							id="send-button"
-							aria-label="Send message"
-						>
-							Send
+						<button id="send-button" aria-label="ارسال پیام">
+							ارسال
 						</button>
 
 					</div>
@@ -642,17 +589,14 @@
 
 		</main>
 
-
 		<footer>
-			Cloudflare Workers AI
+			matinder ai · Cloudflare Workers AI
 		</footer>
 
 	</div>
-
 
 	<!-- Chat app script -->
 	<script src="chat.js"></script>
 
 </body>
 </html>
-```
